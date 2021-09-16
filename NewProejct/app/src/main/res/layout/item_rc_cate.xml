@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            app:imageFromUrl="@{imageUrl}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/item_cat"/>
+
+    </LinearLayout>
+</layout>

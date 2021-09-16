@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewProejct</string>
+    <string name="total_movie">%1$d movies</string>
+</resources>

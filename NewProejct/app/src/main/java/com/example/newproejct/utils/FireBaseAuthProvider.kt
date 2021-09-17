@@ -10,7 +10,7 @@ import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 
 
-class FireBaseAuthProvider (private val context: Context) {
+class FireBaseAuthProvider () {
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var verificationId: String
 
@@ -21,9 +21,10 @@ class FireBaseAuthProvider (private val context: Context) {
         this.phoneCallBacksListener = listener
     }
 
-    private val callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks =
+     val callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks =
         object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
+                Log.d("jyl" , "onVerificationCompleted")
                 val code = phoneAuthCredential.smsCode
                 if (code != null) {
                     phoneCallBacksListener.onVerificationCodeDetected(code)
@@ -31,6 +32,7 @@ class FireBaseAuthProvider (private val context: Context) {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
+                Log.d("jyl" , "onVerificationFailed")
                 when(e){
                     is FirebaseAuthInvalidCredentialsException -> phoneCallBacksListener.onVerificationFailed(e.message?:" ")
                     is FirebaseTooManyRequestsException -> phoneCallBacksListener.onVerificationFailed(e.message?:" ")
@@ -38,13 +40,14 @@ class FireBaseAuthProvider (private val context: Context) {
                 }
             }
         }
-    fun sendVerificationCode(phone: String) {
+
+    fun sendVerificationCode(phone: String, context: Activity) {
         Log.d("jyl", "context: ${(context)}")
         Log.d("jyl", "getActivity: ${getActivity(context)}")
         val options = PhoneAuthOptions.newBuilder()
             .setPhoneNumber(phone.trim())
             .setTimeout(30, TimeUnit.SECONDS)
-            .setActivity(getActivity(context)!!)
+            .setActivity(context)
             .setCallbacks(callbacks)
             .build()
 

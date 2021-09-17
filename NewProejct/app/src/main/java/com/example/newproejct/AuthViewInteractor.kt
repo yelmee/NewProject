@@ -1,5 +1,6 @@
 package com.example.newproejct
 
+import android.app.Activity
 import com.google.firebase.auth.PhoneAuthCredential
 
 interface AuthViewInteractor: ViewInteractor {
@@ -10,4 +11,6 @@ interface AuthViewInteractor: ViewInteractor {
     fun startSMSListner()
 
     fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential)
+
+    fun getActivity(): Activity
 }

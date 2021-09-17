@@ -2,114 +2,147 @@ package com.example.newproejct.ui
 
 import android.content.*
 import android.os.Bundle
-import android.widget.Toast
-import com.example.newproejct.AuthViewInteractor
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.example.newproejct.R
-import com.example.newproejct.viewmodel.AuthViewModel
 import com.example.newproejct.databinding.ActivityAuthBinding
 import com.example.newproejct.snackbar
-import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.android.gms.common.api.CommonStatusCodes
-import com.google.android.gms.common.api.Status
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
+import com.example.newproejct.viewmodel.PhoneAuthViewModel
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
-class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth),
-AuthViewInteractor{
+class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth){
 
-    companion object{
-        private const val CREDENTIAL_PICKER_REQUEST = 1
-        private const val  SMS_CONSENT_REQUEST = 2
-
-        fun getIntent(context: Context): Intent{
-            return Intent(context, MainActivity::class.java)
-        }
-    }
-
-    lateinit var firebaseAuth : FirebaseAuth
-    private val viewModel: AuthViewModel by viewModel()
-
-    private val smsVertificationReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent) {
-            if (SmsRetriever.SMS_RETRIEVED_ACTION == intent.action) {
-                val extras = intent.extras
-                val smsRetrieverStatus = extras?.get(SmsRetriever.EXTRA_STATUS) as Status
-
-                when (smsRetrieverStatus.statusCode) {
-                    CommonStatusCodes.SUCCESS -> {
-                        val consentIntent = extras.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)
-                        try {
-                            startActivityForResult(consentIntent, SMS_CONSENT_REQUEST)
-                        } catch (e: ActivityNotFoundException) {
-                            snackbar(e.message?: "something went wrong")
-                        }
-                    }
-
-                    CommonStatusCodes.TIMEOUT -> {
-
-                    }
-                }
-            }
-        }
-    }
+    private lateinit var auth: FirebaseAuth
+    private var storedVerificationId = ""
+    private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
+    private val viewModel: PhoneAuthViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.viewInteractor = this
-
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        registerReceiver(smsVertificationReceiver, intentFilter)
-
-        binding.phoneAuthBtn.setOnClickListener {
-            if(viewModel.checkIfPhoneIsValid(binding.phoneNumberEt.text.toString())){
-                viewModel.sendOptToPhone(binding.phoneNumberEt.text.toString())
-            }else{
-                binding.phoneNumberEt.error = "Invalid Phone: Please enter phone number with country code"
-            }
-        }
-
+        auth = Firebase.auth
+        initViewModelCallback()
     }
 
-    override fun showSnackBarMessage(message: String) {
-
-    }
-
-    override fun goToGoalActivity() {
-        startActivity(MainActivity.getIntent(this))
-        finish()
-    }
-
-    override fun startSMSListner() {
-        val smsRetrieverClient = SmsRetriever.getClient(this)
-        val task = smsRetrieverClient.startSmsUserConsent(null)
-        task.addOnSuccessListener {
-            Toast.makeText(this, "SMS retriever starts", Toast.LENGTH_LONG).show()
-        }
-        task.addOnFailureListener {
-            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-
-        }
-    }
-
-    override fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(
-                this
-            ){
-                if (it.exception is FirebaseAuthInvalidCredentialsException) {
-                    snackbar(it.exception?.message?: "Verification failed")
+    private fun initViewModelCallback() {
+        with(viewModel) {
+            requestPhoneAuth.observe(this@AuthActivity, Observer {
+                if (it) {
+                    startPhoneNumberVerification("+1"+viewModel.etPhoneNum.value.toString().substring(1))
                 }else{
-                    snackbar("Verification Failed")
+                    snackbar("전화번호를 입력해주세요")
+                }
+            })
+            requestResendPhoneAuth.observe(this@AuthActivity, Observer {
+                if (it) {
+                    resendVerificationCode(
+                        "+1"+ viewModel.etPhoneNum.value.toString().substring(1)
+                    , resendToken
+                    )
+                }
+            })
+
+            authComplete.observe(this@AuthActivity, Observer {
+                val phoneCredential =
+                    PhoneAuthProvider.getCredential(
+                        storedVerificationId,
+                        viewModel.etAuthNum.value!!
+                    )
+
+                verifyPhoneNumberWithCode(phoneCredential)
+            })
+        }
+    }
+
+    private val callback by lazy {
+        object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                snackbar("인증코드가 전송되었습니다. 90초 이내에 입력해주세요")
+//                UserInfo.get = credential.smsCode.toString()
+                binding.phoneAuthEtAuthNum.setText(credential.smsCode.toString())
+                binding.phoneAuthEtAuthNum.isEnabled = false
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    verifyPhoneNumberWithCode(credential)
+                }, 1000)
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                Log.w("jyl", "onVerificationFailted",e)
+                if (e is FirebaseAuthInvalidCredentialsException) {
+
+                }else if (e is FirebaseTooManyRequestsException) {
+
+                }
+            }
+
+        }
+    }
+
+    private fun startPhoneNumberVerification(phoneNumber: String) {
+        val options = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(90L, TimeUnit.SECONDS)
+            .setActivity(this)
+            .setCallbacks(callback)
+            .build()
+
+        PhoneAuthProvider.verifyPhoneNumber(options)
+        binding.phoneAuthBtn.run {
+            text = "재전송"
+            setTextColor(
+                ContextCompat.getColor(
+                    this@AuthActivity, R.color.browser_actions_bg_grey
+                )
+            )
+        }
+    }
+
+    private fun resendVerificationCode(
+        phoneNumber: String,
+        token: PhoneAuthProvider.ForceResendingToken?
+    ){
+        val optionsBuilder = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(90L, TimeUnit.SECONDS)
+            .setActivity(this)
+            .setCallbacks(callback)
+
+        if (token != null) {
+            optionsBuilder.setForceResendingToken(token)
+        }
+
+        PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
+    }
+
+    private fun verifyPhoneNumberWithCode(phoneAuthCredential: PhoneAuthCredential) {
+       val tel = binding.phoneNumberEt.text.toString()
+        val authNum = phoneAuthCredential.smsCode.toString()
+
+        if (tel.isNullOrBlank() && authNum.isNotBlank()) {
+            snackbar("인증 성공")
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        Firebase.auth.signInWithCredential(phoneAuthCredential)
+            .addOnCompleteListener(this@AuthActivity){task ->
+                if (task.isSuccessful) {
+                    snackbar("인증 성공")
+                    binding.phoneAuthEtAuthNum.isEnabled = true
+                    startActivity(Intent(this, MainActivity::class.java))
+                }else{
+                    snackbar("인증 실패")
                 }
             }
     }
+
 }

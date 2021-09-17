@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     private val bannerRepository: BannerRepository,
     private val shopRepository: ShopRepository, application: Application
-) : BaseViewModel<AuthViewInteractor>(application) {
+) : BaseViewModel() {
 
     private val _categoryListItemLiveData = MutableLiveData<List<MainRecyclerviewItem.Categories>>()
     val categoryListItemLiveData: LiveData<List<MainRecyclerviewItem.Categories>>

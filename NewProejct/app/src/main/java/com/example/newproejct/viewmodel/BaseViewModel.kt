@@ -6,12 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.newproejct.ViewInteractor
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel<VI: ViewInteractor>(application: Application): AndroidViewModel(application) {
-    private val context = getApplication<Application>().applicationContext
+abstract class BaseViewModel(): ViewModel() {
     protected val compositeDisposable = CompositeDisposable()
-
-    var viewInteractor: VI? = null
-    set
 
     override fun onCleared() {
         compositeDisposable.dispose()

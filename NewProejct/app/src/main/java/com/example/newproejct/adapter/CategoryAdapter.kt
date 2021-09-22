@@ -10,7 +10,7 @@ import com.example.newproejct.databinding.ItemRcCateBinding
 import com.example.newproejct.data.MainRecyclerviewItem
 
 class CategoryAdapter :
-    ListAdapter<MainRecyclerviewItem.Categories, RecyclerView.ViewHolder>(CategoryDiffCallback()) {
+    ListAdapter<MainRecyclerviewItem.Category, RecyclerView.ViewHolder>(CategoryDiffCallback()) {
     var itemClickListener: ((view: View, item: MainRecyclerviewItem, position: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -36,7 +36,7 @@ class CategoryAdapter :
 
         var itemClickListener: ((view: View, item: MainRecyclerviewItem, position: Int) -> Unit)? = null
 
-        fun bind(item: MainRecyclerviewItem.Categories) {
+        fun bind(item: MainRecyclerviewItem.Category) {
             binding.imageUrl = item.urls
             binding.executePendingBindings()
 
@@ -46,12 +46,12 @@ class CategoryAdapter :
         }
     }
 
-    private class CategoryDiffCallback : DiffUtil.ItemCallback<MainRecyclerviewItem.Categories>() {
-        override fun areItemsTheSame(oldItem: MainRecyclerviewItem.Categories, newItem: MainRecyclerviewItem.Categories): Boolean {
+    private class CategoryDiffCallback : DiffUtil.ItemCallback<MainRecyclerviewItem.Category>() {
+        override fun areItemsTheSame(oldItem: MainRecyclerviewItem.Category, newItem: MainRecyclerviewItem.Category): Boolean {
             return oldItem.title == newItem.title
         }
 
-        override fun areContentsTheSame(oldItem: MainRecyclerviewItem.Categories, newItem: MainRecyclerviewItem.Categories): Boolean {
+        override fun areContentsTheSame(oldItem: MainRecyclerviewItem.Category, newItem: MainRecyclerviewItem.Category): Boolean {
             return oldItem == newItem
         }
     }

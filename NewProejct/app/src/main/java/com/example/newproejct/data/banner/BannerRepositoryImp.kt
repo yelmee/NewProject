@@ -1,4 +1,4 @@
-package com.example.newproejct.data
+package com.example.newproejct.data.banner
 
 import com.example.newproejct.api.ApiService
 import io.reactivex.Observable

@@ -3,7 +3,6 @@ package com.example.newproejct.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newproejct.R
@@ -36,12 +35,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
         mainRecyclerViewAdapter.itemClickListener = {view, item, position ->
             val message = when (item) {
-                is MainRecyclerviewItem.Banners -> "Banner ${position} Clicked"
-                is MainRecyclerviewItem.Categories -> "Category ${position} Clicked"
+                is MainRecyclerviewItem.Banner -> "Banner ${position} Clicked"
+                is MainRecyclerviewItem.Category -> {
+                    "Category ${position} Clicked"
+                }
                 is MainRecyclerviewItem.Shop -> "Shop ${position} clicked"
             }
 
             snackbar(message)
+            startActivity(Intent(this, ShopActivity::class.java))
+
         }
 
         mainViewModel.categoryListItemLiveData.observe(this){ result ->
@@ -52,7 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             mainRecyclerViewAdapter.shopItems = result
         }
 
-        val bannerObserver = Observer<List<MainRecyclerviewItem.Banners>>{ banner ->
+        val bannerObserver = Observer<List<MainRecyclerviewItem.Banner>>{ banner ->
             mainRecyclerViewAdapter.bannerItems = banner
         }
         mainViewModel.bannerListItemLiveData.observe(this, bannerObserver)

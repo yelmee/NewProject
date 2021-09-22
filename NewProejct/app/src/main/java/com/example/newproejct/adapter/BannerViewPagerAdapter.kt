@@ -1,13 +1,12 @@
 package com.example.newproejct.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newproejct.databinding.ItemVpBannerBinding
 import com.example.newproejct.data.MainRecyclerviewItem
 
-class BannerViewPagerAdapter(private val item: List<MainRecyclerviewItem.Banners>) :
+class BannerViewPagerAdapter(private val item: List<MainRecyclerviewItem.Banner>) :
     RecyclerView.Adapter<BannerViewPagerAdapter.PagerViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         return PagerViewHolder(

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="menu"
+            type="com.example.newproejct.data.detailshop.Menus" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@{menu.name}"
+            tools:text="메뉴이름"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_menuItem_tv"/>
+        <TextView
+            android:text="@{menu.description}"
+            tools:text="설명"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/content_menuItem_tv"/>
+        <TextView
+            android:text="@{menu.menuPrices.get(0).price}"
+            tools:text="가격"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_menuItem_tv"/>
+
+    </LinearLayout>
+
+</layout>

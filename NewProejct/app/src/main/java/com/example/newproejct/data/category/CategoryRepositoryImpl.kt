@@ -1,4 +1,4 @@
-package com.example.newproejct.data
+package com.example.newproejct.data.category
 
 import com.example.newproejct.api.ApiService
 import io.reactivex.Observable

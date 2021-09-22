@@ -30,11 +30,11 @@ sealed class MainRecyclerViewHolder(
         private var bannerSize = 0
 
         fun bind(
-            banner: List<MainRecyclerviewItem.Banners>,
-            category: List<MainRecyclerviewItem.Categories>
+            banner: List<MainRecyclerviewItem.Banner>,
+            category: List<MainRecyclerviewItem.Category>
         ) {
             bannerSize = banner.size
-            // init adapter
+            // init category adapter
             bindingHeader.mainRcCategories.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(context, 5)
@@ -42,6 +42,7 @@ sealed class MainRecyclerViewHolder(
             }
             categoryRecyclerViewAdapter.submitList(category)
 
+            // init banner adapter
             val adapter = BannerViewPagerAdapter(banner)
             bindingHeader.mainViewPager.apply {
                 setAdapter(adapter)
@@ -66,11 +67,11 @@ sealed class MainRecyclerViewHolder(
                 })
             }
 
-            // item click animation event
+            // category item click animation event
             categoryRecyclerViewAdapter.itemClickListener = {view, item, position ->
                     val message = when (item) {
-                        is MainRecyclerviewItem.Banners -> "Banner ${position} Clicked"
-                        is MainRecyclerviewItem.Categories -> "Category ${position} Clicked"
+                        is MainRecyclerviewItem.Banner -> "Banner ${position} Clicked"
+                        is MainRecyclerviewItem.Category -> "Category ${position} Clicked"
                         is MainRecyclerviewItem.Shop -> "Shop ${position} clicked"
                     }
                 val animation: Animation = AnimationUtils.loadAnimation(view.context, R.anim.bigsmall)

@@ -31,13 +31,15 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth){
 
         auth = Firebase.auth
         initViewModelCallback()
+        binding.vm = viewModel
     }
 
-    private fun initViewModelCallback() {
+     fun initViewModelCallback() {
+        Log.d("jyl","dkdkdkdk")
         with(viewModel) {
             requestPhoneAuth.observe(this@AuthActivity, Observer {
                 if (it) {
-                    startPhoneNumberVerification("+1"+viewModel.etPhoneNum.value.toString().substring(1))
+                    startPhoneNumberVerification("+1 "+viewModel.etPhoneNum.value.toString().substring(0))
                 }else{
                     snackbar("전화번호를 입력해주세요")
                 }
@@ -45,7 +47,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth){
             requestResendPhoneAuth.observe(this@AuthActivity, Observer {
                 if (it) {
                     resendVerificationCode(
-                        "+1"+ viewModel.etPhoneNum.value.toString().substring(1)
+                        "+1 "+ viewModel.etPhoneNum.value.toString().substring(0)
                     , resendToken
                     )
                 }
@@ -66,6 +68,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth){
     private val callback by lazy {
         object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                Log.d("jyl", "onVerificationCompleted")
                 snackbar("인증코드가 전송되었습니다. 90초 이내에 입력해주세요")
 //                UserInfo.get = credential.smsCode.toString()
                 binding.phoneAuthEtAuthNum.setText(credential.smsCode.toString())
@@ -73,7 +76,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth){
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     verifyPhoneNumberWithCode(credential)
-                }, 1000)
+                }, 3000)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -83,6 +86,17 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth){
                 }else if (e is FirebaseTooManyRequestsException) {
 
                 }
+            }
+
+            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(p0, p1)
+                Log.d("jyl", "onCodeSent")
+                val id = p0
+                val token = p1
+                val code = "112233"
+                verifyPhoneNumberWithCode(PhoneAuthProvider.getCredential(id, code))
+
+
             }
 
         }

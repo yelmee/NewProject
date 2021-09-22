@@ -5,8 +5,6 @@
     tools:context=".ui.AuthActivity">
 
     <data>
-
-        <import type="android.view.View" />
         <variable
             name="vm"
             type="com.example.newproejct.viewmodel.PhoneAuthViewModel" />
@@ -29,13 +27,13 @@
             android:text="휴대전화"/>
 
         <EditText
-            android:text="+11112223333"
+            android:text="@{vm.etPhoneNum}"
             app:layout_constraintTop_toBottomOf="@id/phoneTitle"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/phoneNumberEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="010----"/>
+            android:hint="010-0000-0000"/>
 
         <EditText
             android:layout_width="match_parent"

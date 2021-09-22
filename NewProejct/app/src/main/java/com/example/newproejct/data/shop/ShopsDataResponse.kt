@@ -1,5 +1,6 @@
-package com.example.newproejct.data
+package com.example.newproejct.data.shop
 
+import com.example.newproejct.data.MainRecyclerviewItem
 import com.google.gson.annotations.SerializedName
 
 data class ShopsDataResponse(

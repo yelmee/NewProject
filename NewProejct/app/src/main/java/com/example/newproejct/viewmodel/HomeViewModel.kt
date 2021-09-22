@@ -4,10 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.newproejct.AuthViewInteractor
-import com.example.newproejct.data.BannerRepository
-import com.example.newproejct.data.CategoryRepository
-import com.example.newproejct.data.ShopRepository
+import com.example.newproejct.data.banner.BannerRepository
+import com.example.newproejct.data.category.CategoryRepository
+import com.example.newproejct.data.shop.ShopRepository
 import com.example.newproejct.data.MainRecyclerviewItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,12 +18,12 @@ class HomeViewModel @Inject constructor(
     private val shopRepository: ShopRepository, application: Application
 ) : BaseViewModel() {
 
-    private val _categoryListItemLiveData = MutableLiveData<List<MainRecyclerviewItem.Categories>>()
-    val categoryListItemLiveData: LiveData<List<MainRecyclerviewItem.Categories>>
+    private val _categoryListItemLiveData = MutableLiveData<List<MainRecyclerviewItem.Category>>()
+    val categoryListItemLiveData: LiveData<List<MainRecyclerviewItem.Category>>
         get() = _categoryListItemLiveData
 
-    private val _bannerListItemLiveData = MutableLiveData<List<MainRecyclerviewItem.Banners>>()
-    val bannerListItemLiveData: LiveData<List<MainRecyclerviewItem.Banners>>
+    private val _bannerListItemLiveData = MutableLiveData<List<MainRecyclerviewItem.Banner>>()
+    val bannerListItemLiveData: LiveData<List<MainRecyclerviewItem.Banner>>
         get() = _bannerListItemLiveData
 
 
@@ -39,7 +38,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getCategoryListItem() {
-        val categoryItemsList = mutableListOf<MainRecyclerviewItem.Categories>()
+        val categoryItemsList = mutableListOf<MainRecyclerviewItem.Category>()
         compositeDisposable.add(
             categoryRepository.getCategory()
                 .subscribeOn(Schedulers.io())
@@ -55,7 +54,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getBannerListItem() {
-        val BannaerItemsList = mutableListOf<MainRecyclerviewItem.Banners>()
+        val BannaerItemsList = mutableListOf<MainRecyclerviewItem.Banner>()
         compositeDisposable.add(
             bannerRepository.getBanner()
                 .subscribeOn(Schedulers.io())

@@ -1,4 +1,4 @@
-package com.example.newproejct.data
+package com.example.newproejct.data.category
 
 import com.google.gson.annotations.SerializedName
 

@@ -22,6 +22,7 @@ class PhoneAuthViewModel @Inject constructor(): BaseViewModel() {
     fun requestPhoneAuth() {
         Log.d("jyl","requestphoneAuth")
         if (!isResendPhoneAuth) {
+            etPhoneNum.value = "650-555-1234"
             _requestPhoneAuth.value = !etPhoneNum.value.isNullOrBlank()
         }else{
             _requestResendPhoneAuth.value = !etPhoneNum.value.isNullOrBlank()

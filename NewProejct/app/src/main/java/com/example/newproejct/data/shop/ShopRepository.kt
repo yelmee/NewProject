@@ -1,4 +1,4 @@
-package com.example.newproejct.data
+package com.example.newproejct.data.shop
 
 import io.reactivex.Observable
 

@@ -1,5 +1,6 @@
 package com.example.newproejct.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,13 @@ class MainRecyclerViewAdapter: RecyclerView.Adapter<MainRecyclerViewHolder>() {
         notifyDataSetChanged()
     }
 
-    var bannerItems = listOf<MainRecyclerviewItem.Banners>()
+    var bannerItems = listOf<MainRecyclerviewItem.Banner>()
         set(value) {
             field =  value
             notifyDataSetChanged()
         }
 
-    var categoryItems = listOf<MainRecyclerviewItem.Categories>()
+    var categoryItems = listOf<MainRecyclerviewItem.Category>()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -64,6 +65,7 @@ class MainRecyclerViewAdapter: RecyclerView.Adapter<MainRecyclerViewHolder>() {
     override fun getItemCount(): Int = shopItems.size
 
     override fun getItemViewType(position: Int): Int {
+        Log.d("jyl position", position.toString())
         var returnValue: Int = 0
          if(position == 0) {
              returnValue =  R.layout.header_main

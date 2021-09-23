@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="bag"
+            type="com.example.newproejct.data.bag.Bag" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_title_tv"
+        app:text="@{bag.title}"
+        tools:text="음식이름"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_clear_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="옵션"
+        app:layout_constraintTop_toBottomOf="@id/item_title_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/item_option_tv"/>
+    <TextView
+        app:text="@{bag.price}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="10000원"
+        app:layout_constraintTop_toBottomOf="@id/item_option_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/item_price_tv"/>
+    <TextView
+        app:text="@{bag.count}"
+        android:padding="20dp"
+        android:background="@drawable/btn_round_gray_stroke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_count_tv"
+        app:layout_constraintTop_toTopOf="@id/item_price_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_price_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="1개"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -3,4 +3,7 @@
     <string name="total_movie">%1$d movies</string>
     <string name="shop_recent_review">최근리뷰</string>
     <string name="shop_recent_host_review">최근사장님댓글</string>
+    <string name="order_btn">주문하기</string>
+    <string name="all_order_price">총 주문금액</string>
+    <string name="return_shop">더 담으러가기</string>
 </resources>

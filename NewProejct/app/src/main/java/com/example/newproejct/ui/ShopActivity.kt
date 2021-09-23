@@ -1,5 +1,6 @@
 package com.example.newproejct.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,6 +35,10 @@ class ShopActivity : BaseActivity<ActivityShopBinding>(R.layout.activity_shop) {
         TabLayoutMediator(tabLayout, viewpager){ tab, position ->
             tab.text = list[position]
         }.attach()
+
+        binding.fab.setOnClickListener {
+            startActivity(Intent(this, BagActivity::class.java))
+        }
 
     }
 }

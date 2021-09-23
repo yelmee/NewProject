@@ -44,7 +44,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
             snackbar(message)
             startActivity(Intent(this, ShopActivity::class.java))
-
         }
 
         mainViewModel.categoryListItemLiveData.observe(this){ result ->

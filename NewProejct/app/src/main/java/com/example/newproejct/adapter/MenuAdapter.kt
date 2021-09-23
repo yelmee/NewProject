@@ -2,6 +2,7 @@ package com.example.newproejct.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newproejct.R
@@ -13,6 +14,7 @@ import java.lang.IllegalArgumentException
 
 class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
 
+    var toastListener: ((item: MenuData.RepresentationMenu) -> Unit)? = null
     var groupMenuItem = listOf<MenuData.GroupMenus>()
         set(value) {
             field = value
@@ -26,7 +28,6 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        Log.d("jyl", "oncreate")
         return when (viewType) {
             R.layout.fragment_menu -> MenuViewHolder.AllMenuViewHolder(
                 FragmentMenuBinding.inflate(
@@ -48,7 +49,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        Log.d("jyl", "onbind")
+        holder.toastListener = toastListener
         when (holder) {
             is MenuViewHolder.RepresentMenuViewHolder -> holder.bind(representItem as List<MenuData.RepresentationMenu>)
             is MenuViewHolder.AllMenuViewHolder -> holder.bind(groupMenuItem[position].menus as List<Menus>)

@@ -7,7 +7,7 @@
             name="menu"
             type="com.example.newproejct.data.detailshop.MenuData.GroupMenus" />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,5 +17,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/menu_recyclerview"/>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

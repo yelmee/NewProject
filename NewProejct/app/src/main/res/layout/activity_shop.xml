@@ -106,46 +106,62 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
                             android:layout_marginBottom="30dp"
-                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
-                            <TextView
+                            <LinearLayout
+                                android:layout_weight="1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:drawableStart="@drawable/icon_24_review_smile_normal"
-                                android:gravity="center"
-                                android:text="전화" />
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/icon_24_review_smile_normal"
+                                    android:gravity="center"
+                                    android:text="전화" />
+                            </LinearLayout>
 
                             <View
+                                android:layout_width="1dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@color/black" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/icon_24_review_smile_normal"
+                                    android:gravity="center"
+                                    android:text="전화" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_gravity="center"
                                 android:layout_width="1dp"
                                 android:layout_height="10dp"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="5dp"
                                 android:background="@color/black" />
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:drawableStart="@drawable/icon_24_review_smile_normal"
-                                android:gravity="center"
-                                android:text="찜" />
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="10dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="5dp"
-                                android:background="@color/black" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:drawableStart="@drawable/icon_24_review_smile_normal"
-                                android:gravity="center"
-                                android:text="공유" />
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/icon_24_review_smile_normal"
+                                    android:gravity="center"
+                                    android:text="전화" />
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -162,5 +178,15 @@
                     android:id="@+id/viewPager"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:elevation="20dp"
+            android:backgroundTint="@color/teal_700"
+            android:src="@drawable/bag_suitcase"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

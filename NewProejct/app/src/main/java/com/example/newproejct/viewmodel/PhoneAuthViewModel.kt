@@ -32,5 +32,4 @@ class PhoneAuthViewModel @Inject constructor(): BaseViewModel() {
     fun authComplete() {
         _authComplete.call()
     }
-
 }

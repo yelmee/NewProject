@@ -1,6 +1,7 @@
 package com.example.newproejct.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,11 +13,18 @@ import com.example.newproejct.databinding.ItemRepresentDetailShopBinding
 import java.util.zip.Inflater
 
 class RepresentationAdapter: ListAdapter<MenuData.RepresentationMenu, RecyclerView.ViewHolder>(RepresentDiffCallback()) {
+    var itemClickListener: ((view: View, item: MenuData.RepresentationMenu, position: Int) -> Unit)? = null
+
     inner class representationViewHolder(val binding: ItemRepresentDetailShopBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        var itemClickListener: ((view: View, item: MenuData.RepresentationMenu, position: Int) -> Unit)? = null
 
         fun bind(item: MenuData.RepresentationMenu) {
             binding.representMenu = item
+
+            binding.menuImageRepresentItemIv.setOnClickListener {
+                itemClickListener?.invoke(it, item, absoluteAdapterPosition)
+            }
         }
     }
 
@@ -29,6 +37,7 @@ class RepresentationAdapter: ListAdapter<MenuData.RepresentationMenu, RecyclerVi
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as representationViewHolder).itemClickListener = itemClickListener
         (holder as representationViewHolder).bind(getItem(position))
     }
 

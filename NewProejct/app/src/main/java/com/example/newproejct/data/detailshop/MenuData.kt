@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 sealed class MenuData {
     data class RepresentationMenu(
+        @field:SerializedName("menuId") val menuId: Int,
         @field:SerializedName("name") val name: String,
         @field:SerializedName("images") val images: List<Images>,
         @field:SerializedName("description") val description: String,

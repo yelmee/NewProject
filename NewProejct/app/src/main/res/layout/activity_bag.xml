@@ -30,6 +30,7 @@
             android:layout_height="20dp"
             android:background="@drawable/line"/>
         <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/orderList_bag_rc"/>

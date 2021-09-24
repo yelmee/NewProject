@@ -1,5 +1,6 @@
 package com.example.newproejct.data.bag
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -14,5 +15,5 @@ interface BagDao {
     fun delete(bag: Bag)
 
     @Query("SELECT * FROM Bag")
-    fun getBag(): List<Bag>
+    fun getBag(): LiveData<List<Bag>>
 }

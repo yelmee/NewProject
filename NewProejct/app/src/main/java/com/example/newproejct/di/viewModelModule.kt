@@ -12,6 +12,6 @@ val viewModelModule: Module = module {
     viewModel { HomeViewModel(get(),get(), get(),get()) }
     viewModel { PhoneAuthViewModel() }
     viewModel { ShopViewModel(get()) }
-    viewModel { BagViewModel() }
+    viewModel { BagViewModel(get()) }
 
 }

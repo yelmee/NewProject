@@ -2,7 +2,6 @@ package com.example.newproejct.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newproejct.R
 import com.example.newproejct.adapter.MenuAdapter
+import com.example.newproejct.data.bag.Bag
 import com.example.newproejct.databinding.FragmentMenuBinding
 import com.example.newproejct.viewmodel.BagViewModel
 import com.example.newproejct.viewmodel.ShopViewModel
@@ -71,7 +70,8 @@ class ShopRecyclerViewFragment(): Fragment() {
 
         menuAdapter.toastListener = { item ->
             Toast.makeText(myContext, "장바구니에 담겼습니다.", Toast.LENGTH_LONG).show()
-            bagViewModel.insertBag(item)
+            val bag = Bag(item.name, item.menuPrices[0].price, 1)
+            bagViewModel.addBag(bag)
         }
     }
 }

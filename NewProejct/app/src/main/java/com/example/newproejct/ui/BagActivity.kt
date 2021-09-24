@@ -17,9 +17,9 @@ class BagActivity : BaseActivity<ActivityBagBinding>(R.layout.activity_bag){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.requestBagList.observe(this, Observer { bagList ->
+        binding.orderListBagRc.adapter = bagRecyclerViewAdapter
+        viewModel.getBag().observe(this, Observer { bagList ->
             bagRecyclerViewAdapter.submitList(bagList)
         })
-
     }
 }

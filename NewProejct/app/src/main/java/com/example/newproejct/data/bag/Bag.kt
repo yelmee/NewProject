@@ -9,6 +9,6 @@ data class Bag(
     var price: String,
     var count: Int
 ) {
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

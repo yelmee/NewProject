@@ -2,6 +2,7 @@ package com.example.newproejct.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.newproejct.data.detailshop.DetailShopInfo
 import com.example.newproejct.data.detailshop.DetailShopRepository
 import com.example.newproejct.data.detailshop.MenuData
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,8 +18,8 @@ class ShopViewModel @Inject constructor(val detailShopRepository: DetailShopRepo
     private var _requestAllMenu = MutableLiveData<List<MenuData.GroupMenus>>()
     val requestAllMenu: LiveData<List<MenuData.GroupMenus>> get() = _requestAllMenu
 
-//    private var _requestAllMenu2 = MutableLiveData<List<MenuData.GroupMenus>>()
-//    val requestAllMenu2: LiveData<List<MenuData.GroupMenus>> get() = _requestAllMenu
+    private var _requestShopInfo = MutableLiveData<DetailShopInfo>()
+    val requestShopInfo: LiveData<DetailShopInfo> get() = _requestShopInfo
 
     var tvTitleItem = MutableLiveData<String>()
     var tvContentItem = MutableLiveData<String>()
@@ -27,6 +28,7 @@ class ShopViewModel @Inject constructor(val detailShopRepository: DetailShopRepo
 
     init {
         getRepresentMenu()
+        getShopInfo()
     }
 
     fun getRepresentMenu() {
@@ -45,5 +47,18 @@ class ShopViewModel @Inject constructor(val detailShopRepository: DetailShopRepo
                     _requestAllMenu.postValue(allMenuList)
                 }
         )
+    }
+
+    fun getShopInfo() {
+        compositeDisposable.add(
+            detailShopRepository.getDetailShop()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnError {}
+                .subscribe { shop ->
+                    _requestShopInfo.postValue(shop.data.shopInfo)
+                }
+        )
+
     }
 }

@@ -12,8 +12,9 @@
         android:theme="@style/Theme.NewProejct"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.BagActivity"></activity>
+        <activity android:name=".ui.OptionActivity" />
         <activity android:name=".ui.ShopActivity" />
-        <activity android:name=".ui.AuthActivity"></activity>
+        <activity android:name=".ui.AuthActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

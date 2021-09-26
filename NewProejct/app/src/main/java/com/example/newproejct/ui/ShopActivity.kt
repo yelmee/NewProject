@@ -4,13 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newproejct.R
 import com.example.newproejct.adapter.ShopViewPagerAdapter
 import com.example.newproejct.databinding.ActivityShopBinding
+import com.example.newproejct.viewmodel.ShopViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ShopActivity : BaseActivity<ActivityShopBinding>(R.layout.activity_shop) {
+    val viewModel: ShopViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,5 +46,8 @@ class ShopActivity : BaseActivity<ActivityShopBinding>(R.layout.activity_shop) {
             startActivity(Intent(this, BagActivity::class.java))
         }
 
+        viewModel.requestShopInfo.observe(this, Observer { data ->
+            binding.shop = data
+        })
     }
 }

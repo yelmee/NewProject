@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newproejct.adapter.MenuAdapter
 import com.example.newproejct.data.bag.Bag
-import com.example.newproejct.databinding.FragmentMenuBinding
+import com.example.newproejct.databinding.FragmentGroupMenuBinding
 import com.example.newproejct.viewmodel.BagViewModel
 import com.example.newproejct.viewmodel.ShopViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,7 +43,8 @@ class ShopRecyclerViewFragment(): Fragment() {
 //            myContext = container.context
 //        }
 
-        val view = FragmentMenuBinding.inflate(inflater, container, false)
+
+        val view = FragmentGroupMenuBinding.inflate(inflater, container, false)
         rc = view.menuRecyclerview
 
         rc.apply {

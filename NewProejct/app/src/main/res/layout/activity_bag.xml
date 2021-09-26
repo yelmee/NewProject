@@ -83,5 +83,4 @@
             android:layout_height="wrap_content"
             android:id="@+id/order_bag_btn"/>
     </LinearLayout>
-
 </layout>

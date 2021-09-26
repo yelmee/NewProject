@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newproejct.R
 import com.example.newproejct.data.detailshop.MenuData
 import com.example.newproejct.data.detailshop.Menus
-import com.example.newproejct.databinding.FragmentMenuBinding
-import com.example.newproejct.databinding.FragmentRecyclerviewBinding
+import com.example.newproejct.databinding.FragmentGroupMenuBinding
+import com.example.newproejct.databinding.FragmentRepresentMenuBinding
 import java.lang.IllegalArgumentException
 
 class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
@@ -29,15 +29,15 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         return when (viewType) {
-            R.layout.fragment_menu -> MenuViewHolder.AllMenuViewHolder(
-                FragmentMenuBinding.inflate(
+            R.layout.fragment_group_menu -> MenuViewHolder.AllMenuViewHolder(
+                FragmentGroupMenuBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
             )
-            R.layout.fragment_recyclerview -> MenuViewHolder.RepresentMenuViewHolder(
-                FragmentRecyclerviewBinding.inflate(
+            R.layout.fragment_represent_menu -> MenuViewHolder.RepresentMenuViewHolder(
+                FragmentRepresentMenuBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -52,7 +52,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
         holder.toastListener = toastListener
         when (holder) {
             is MenuViewHolder.RepresentMenuViewHolder -> holder.bind(representItem as List<MenuData.RepresentationMenu>)
-            is MenuViewHolder.AllMenuViewHolder -> holder.bind(groupMenuItem[position].menus as List<Menus>)
+            is MenuViewHolder.AllMenuViewHolder -> holder.bind(groupMenuItem[position].menus as List<Menus>, groupMenuItem[position].name)
         }
 
     }
@@ -61,9 +61,9 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
         Log.d("jyl", "menu position" + position.toString())
         var viewType = 0
         if (position == 0) {
-            viewType = R.layout.fragment_recyclerview
+            viewType = R.layout.fragment_represent_menu
         } else {
-            viewType = R.layout.fragment_menu
+            viewType = R.layout.fragment_group_menu
         }
         return viewType
     }

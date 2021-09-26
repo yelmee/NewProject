@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newproejct.data.detailshop.MenuData
 import com.example.newproejct.data.detailshop.Menus
-import com.example.newproejct.databinding.FragmentMenuBinding
 import com.example.newproejct.databinding.ItemMenuBinding
 
 

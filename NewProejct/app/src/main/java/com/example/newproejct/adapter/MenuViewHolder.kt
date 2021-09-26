@@ -7,8 +7,8 @@ import com.example.newproejct.data.bag.Bag
 import com.example.newproejct.data.bag.BagDataBase
 import com.example.newproejct.data.detailshop.MenuData
 import com.example.newproejct.data.detailshop.Menus
-import com.example.newproejct.databinding.FragmentMenuBinding
-import com.example.newproejct.databinding.FragmentRecyclerviewBinding
+import com.example.newproejct.databinding.FragmentGroupMenuBinding
+import com.example.newproejct.databinding.FragmentRepresentMenuBinding
 
 sealed class MenuViewHolder(
     binding: ViewBinding
@@ -19,8 +19,7 @@ sealed class MenuViewHolder(
     var toastListener: ((item: MenuData.RepresentationMenu) -> Unit)? = null
 
     class RepresentMenuViewHolder(
-        private val binding: FragmentRecyclerviewBinding
-    ) :
+        private val binding: FragmentRepresentMenuBinding) :
         MenuViewHolder(binding) {
 
         fun bind(item: List<MenuData.RepresentationMenu>) {
@@ -40,12 +39,12 @@ sealed class MenuViewHolder(
     }
 
     class AllMenuViewHolder(
-        private val bindingMenu: FragmentMenuBinding
-    ) :
+        private val bindingMenu: FragmentGroupMenuBinding) :
         MenuViewHolder(bindingMenu) {
-        fun bind(item: List<Menus>) {
-            bindingMenu.menuRecyclerview.apply {
-                adapter = groupMenuAdapter
+        fun bind(item: List<Menus>, name: String) {
+            bindingMenu.groupNameMenuTv.text = name
+            bindingMenu.menuRecyclerview.apply{
+                adapter  =  groupMenuAdapter
             }
             groupMenuAdapter.submitList(item)
         }

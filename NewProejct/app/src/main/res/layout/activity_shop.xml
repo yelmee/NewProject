@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.ShopActivity">
 
+    <data>
+
+        <variable
+            name="shop"
+            type="com.example.newproejct.data.detailshop.DetailShopInfo" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -15,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:fitsSystemWindows="true"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+            android:theme="@style/Theme.AppCompat.Light">
 
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -25,15 +32,18 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginStart="20dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:expandedTitleTextAppearance="@style/ExpandedTitleStyle"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{shop.shop_Nm}">
 
                 <ImageView
-                    android:id="@+id/iv"
+                    android:id="@+id/toolBarImage_shop_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/abc_vector_test"
+                    android:src="@color/gray"
+                    app:imageFromUrl="@{shop.contents.get(0).detail.imageUrl}"
                     app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
@@ -73,9 +83,9 @@
                         <TextView
                             android:id="@+id/title_shop_tv"
                             style="@style/shop_title"
+                            text="@{shop.shop_Nm}"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="딘타이펑 강남점" />
+                            android:layout_height="wrap_content" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -102,6 +112,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:padding="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
@@ -162,20 +173,57 @@
                                     android:gravity="center"
                                     android:text="전화" />
                             </LinearLayout>
+<!--                        </LinearLayout>-->
+<!--=======-->
+<!--                            android:layout_marginBottom="30dp">-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/call_shop_tv"-->
+<!--                                android:layout_alignParentLeft="true"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_centerHorizontal="true"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:drawableStart="@drawable/icon_24_review_smile_normal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="전화" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/like_shop_tv"-->
+<!--                                android:layout_centerHorizontal="true"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:drawableStart="@drawable/icon_24_review_smile_normal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="찜" />-->
+
+<!--&lt;!&ndash;                            <View&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_width="1dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_height="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:layout_alignRight="@id/call_shop_tv"&ndash;&gt;-->
+<!--&lt;!&ndash;                                android:background="@color/black" />&ndash;&gt;-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/share_shop_tv"-->
+<!--                                android:layout_alignParentRight="true"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:drawableStart="@drawable/icon_24_review_smile_normal"-->
+<!--                                android:text="공유" />-->
                         </LinearLayout>
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
                     android:id="@+id/tabLayout"
-                    />
-                <androidx.viewpager2.widget.ViewPager2
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/viewPager"/>
+                    android:layout_height="40dp" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton

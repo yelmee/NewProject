@@ -1,9 +1,12 @@
 package com.example.newproejct.ui
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newproejct.R
@@ -17,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ShopActivity : BaseActivity<ActivityShopBinding>(R.layout.activity_shop) {
     val viewModel: ShopViewModel by viewModel()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +31,7 @@ class ShopActivity : BaseActivity<ActivityShopBinding>(R.layout.activity_shop) {
 
         val tabLayout = binding.tabLayout
         val viewpager = binding.viewPager
+
         binding.viewPager?.apply {
             adapter = pagerAdapter
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -37,9 +42,9 @@ class ShopActivity : BaseActivity<ActivityShopBinding>(R.layout.activity_shop) {
             })
         }
 
-        val list = listOf<String>("메뉴", "정보", "리뷰")
+        val tabNm = listOf<String>("메뉴", "정보", "리뷰")
         TabLayoutMediator(tabLayout, viewpager){ tab, position ->
-            tab.text = list[position]
+            tab.text = tabNm[position]
         }.attach()
 
         binding.fab.setOnClickListener {

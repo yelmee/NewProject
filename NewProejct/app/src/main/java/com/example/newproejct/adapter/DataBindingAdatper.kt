@@ -23,6 +23,6 @@ fun bindText(view: TextView, textString: String?) {
     @BindingAdapter("intToText")
     fun bindText(view: TextView, textString: Int?) {
         if (textString != null) {
-            view.text = textString.toString()
+            view.text = textString.toString() + "개"
         }
     }

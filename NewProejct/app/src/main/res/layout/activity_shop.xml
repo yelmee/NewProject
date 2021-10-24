@@ -173,43 +173,6 @@
                                     android:gravity="center"
                                     android:text="전화" />
                             </LinearLayout>
-<!--                        </LinearLayout>-->
-<!--=======-->
-<!--                            android:layout_marginBottom="30dp">-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/call_shop_tv"-->
-<!--                                android:layout_alignParentLeft="true"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_centerHorizontal="true"-->
-<!--                                android:layout_weight="1"-->
-<!--                                android:drawableStart="@drawable/icon_24_review_smile_normal"-->
-<!--                                android:gravity="center"-->
-<!--                                android:text="전화" />-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/like_shop_tv"-->
-<!--                                android:layout_centerHorizontal="true"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:drawableStart="@drawable/icon_24_review_smile_normal"-->
-<!--                                android:gravity="center"-->
-<!--                                android:text="찜" />-->
-
-<!--&lt;!&ndash;                            <View&ndash;&gt;-->
-<!--&lt;!&ndash;                                android:layout_width="1dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                                android:layout_height="10dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                                android:layout_alignRight="@id/call_shop_tv"&ndash;&gt;-->
-<!--&lt;!&ndash;                                android:background="@color/black" />&ndash;&gt;-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/share_shop_tv"-->
-<!--                                android:layout_alignParentRight="true"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:drawableStart="@drawable/icon_24_review_smile_normal"-->
-<!--                                android:text="공유" />-->
                         </LinearLayout>
 
                     </LinearLayout>
@@ -217,6 +180,14 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabIndicator="@color/purple_200"
+                    app:tabIndicatorGravity="top"
+                    app:tabTextColor="@color/gray"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabBackground="@drawable/tab_background"
+                    app:tabTextAppearance="@style/TabText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp" />
 

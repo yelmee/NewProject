@@ -12,7 +12,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +55,8 @@
                 tools:text="10000원" />
 
             <TextView
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
                 android:id="@+id/item_count_tv"

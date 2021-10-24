@@ -11,6 +11,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/white"/>
         <RelativeLayout
             android:background="@color/gray"
             android:padding="10dp"
@@ -29,7 +33,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_24_review_smile_normal"/>
+                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"/>
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             tools:listitem="@layout/item_menu"

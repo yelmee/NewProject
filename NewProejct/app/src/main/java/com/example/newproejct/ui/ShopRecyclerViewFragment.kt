@@ -32,18 +32,6 @@ class ShopRecyclerViewFragment(): Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        if (rootView == null) {
-//            rootView = inflater.inflate(R.layout.fragment_menu, null)
-//        }else{
-//            (container?.parent as ViewGroup).removeView(rootView)
-//        }
-//        return rootView
-
-//        if (container != null) {
-//            myContext = container.context
-//        }
-
-
         val view = FragmentGroupMenuBinding.inflate(inflater, container, false)
         rc = view.menuRecyclerview
 

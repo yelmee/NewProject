@@ -7,4 +7,9 @@
     <style name="ExpandedTitleStyle">
         <item name="android:textColor">@color/transparent</item>
     </style>
+
+    <style name="TabText" >
+<!--        <item name="fontFamily">@font/</item>-->
+        <item name="android:textSize">12dp</item>
+    </style>
 </resources>
